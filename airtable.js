@@ -16,11 +16,20 @@ base('Available recruiters list').select({
 
     records.forEach(function (record) {
         console.log(
-            record.get('Name'), record.get("Title"), record.get("Email"), 
-            getCountryName(record.get("Current location").get),
-            record.get("Region / City"), record.get("Intro / notes"), record.get("Type"),
-            record.get("Unique talent"), record.get("Industry specialisation?"), record.get("Open to relocation?"),
-            record.get("Remote only?"), record.get("LinkedIn profile"), record.get("Available from"), "\n");
+            "name", record.get('Name'),
+            "\ntitle", record.get("Title"),
+            "\nemail", record.get("Email"),
+            "\nlocation", record.get("Country"),
+            "\ncity :", record.get("Region / City"),
+            "\nintro : ", record.get("Intro / notes"),
+            "\ntype :", record.get("Type"),
+            "\nunique_talent :", record.get("Unique talent"),
+            "\nindustry_specialization : ", record.get("Industry specialisation?"),
+            "\nopen_to_relocation :", record.get("Open to relocation?"),
+            "\nremote_only :", record.get("Remote only?"),
+            "\nlinkedIn_url : ", record.get("LinkedIn profile"),
+            "\navailable_from  : ", record.get("Available from")
+        );
     });
 
     // To fetch the next page of records, call `fetchNextPage`.
@@ -34,7 +43,7 @@ base('Available recruiters list').select({
 
 function getCountryName(currentLocation) {
     console.log("Country name: ${currentLocation}")
-    base('Country list').find(currentLocation, function(err, record) {
+    base('Country list').find(currentLocation, function (err, record) {
         if (err) { console.error(err); return; }
         console.log('Retrieved', record.currentLocation);
     });

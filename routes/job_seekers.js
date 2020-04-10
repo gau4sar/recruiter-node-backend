@@ -1,15 +1,19 @@
+const mongoose = require('mongoose');
+const airtable = require("airtable");
 const express = require("express");
-const Router = express.Router();
-const mySqlConnection = require("../connection");
+const router = express.Router();
 
-Router.get("/", (req, res)=> {
-    mySqlConnection.query("Select * from job_seekers", (err, rows, fields)=>{
-        if(!err) {
-            res.send(rows); 
+const JobSeekerModel = mongoose.model("job_seekers");
+
+router.get("/", (req, res) => {
+    JobSeekerModel.find((err, docs) => {
+        if (!err) {
+            console.log(docs);
+            res.send("Job seekers controller")
         } else {
-            console.log(err);
+            res.send("Error response" + err)
         }
     })
 })
 
-module.exports = Router;
+module.exports = router;
