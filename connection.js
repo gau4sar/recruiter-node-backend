@@ -1,14 +1,19 @@
 const moongoose = require("mongoose");
+require('dotenv/config');
 
-moongoose.connect("mongodb://localhost:27017/recruiters", (error)=> {
-    if(!error) {
-        console.log("Connected successfully !!")
-    } else {
-        console.log("Error:", error.errmsg);
-    }
-})
-
-const JobSeeker = require('./model/job_seekers.model')
+moongoose.connect(
+    process.env.DB_CONNECTION,
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    },
+    (error) => {
+        if (!error) {
+            console.log("Connected mongodb successfully!!")
+        } else {
+            console.log("Error:", error.errmsg);
+        }
+    })
 
 
 /* const mysql = require("mysql");

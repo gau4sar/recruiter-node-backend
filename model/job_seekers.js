@@ -22,28 +22,26 @@ var JobSeekersSchema = new mongoose.Schema({
         required: "Required"
     },
     intro: {
-        type: String,
-        required: "Required"
+        type: String
     },
     type: {
         type: Array,
-        required: "Required"
+        required: "Required",
+        "default" : []
     },
     unique_talent: {
         type: String,
         required: "Required"
     },
     industry_specialization: {
-        type: String,
-        required: "Required"
+        type: String
     },
     open_to_relocation: {
-        type: Boolean,
-        required: "Required"
+        type: String
     },
     remote_only: {
-        type: Number,
-        required: "Required"
+        type: Array,
+        "default": []
     },
     linkedIn_url: {
         type: String,
@@ -55,4 +53,4 @@ var JobSeekersSchema = new mongoose.Schema({
     }
 });
 
-mongoose.model("job_seekers", JobSeekersSchema);
+module.exports = mongoose.model("job_seekers", JobSeekersSchema);
