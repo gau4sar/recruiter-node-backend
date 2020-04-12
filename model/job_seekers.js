@@ -2,36 +2,29 @@ const mongoose = require("mongoose");
 
 var JobSeekersSchema = new mongoose.Schema({
     name: {
-        type: String,
-        required: "Required"
+        type: String
     },
     title: {
-        type: String,
-        required: "Required"
+        type: String
     },
     email: {
-        type: String,
-        required: "Required"
+        type: String
     },
     location: {
-        type: String,
-        required: "Required"
+        type: String
     },
     city: {
-        type: String,
-        required: "Required"
+        type: String
     },
     intro: {
         type: String
     },
     type: {
         type: Array,
-        required: "Required",
         "default" : []
     },
     unique_talent: {
-        type: String,
-        required: "Required"
+        type: String
     },
     industry_specialization: {
         type: String
@@ -40,16 +33,13 @@ var JobSeekersSchema = new mongoose.Schema({
         type: String
     },
     remote_only: {
-        type: Array,
-        "default": []
+        type: Array
     },
     linkedIn_url: {
-        type: String,
-        required: "Required"
+        type: String
     },
     available_from: {
-        type: Date,
-        required: "Required"
+        type: Date
     }
 });
 

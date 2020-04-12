@@ -2,13 +2,28 @@ var Airtable = require('airtable');
 const moongoose = require("mongoose");
 const JobSeekerModel = require('./model/job_seekers');
 
-
 Airtable.configure({
     endpointUrl: 'https://api.airtable.com',
     apiKey: 'key9UH2aGjkUBUPce'
 });
 
 var base = Airtable.base('apphkDVW5HQKQ7BI5');
+
+base('Country list').select({
+    view: "Grid view"
+}).eachPage(function page(records, fetchNextPage) {
+
+    records.forEach(function(record) {
+        console.log("Country name :", record.get('Country'));
+    });
+
+    // To fetch the next page of records, call `fetchNextPage`.
+    // If there are more records, `page` will get called again.
+    // If there are no more records, `done` will get called.
+    fetchNextPage();
+}, function done(err) {
+    if (err) { console.error(err); return; }
+});
 
 base('Available recruiters list').select({
     // Selecting the first 3 records in Available recruiters list :
@@ -45,7 +60,7 @@ base('Available recruiters list').select({
         var linkedIn_url = record.get("LinkedIn profile");
         var available_from = record.get("Available from");
 
-        console.log(
+        /* console.log(
             "name", name,
             "\ntitle", title,
             "\nemail", email,
@@ -59,7 +74,7 @@ base('Available recruiters list').select({
             "\nremote_only :", remote_only,
             "\nlinkedIn_url : ", linkedIn_url,
             "\navailable_from  : ", available_from
-        );
+        ); */
 
         var jobSeekerModel = new JobSeekerModel();
         jobSeekerModel.name = name;
@@ -76,7 +91,7 @@ base('Available recruiters list').select({
 
         jobSeekerModel.save((err, doc) => {
             if (!err) {
-                console.log("Saved data successfully :", doc);
+                console.log("Saved data successfully");
             } else {
                 console.log("Error saving data to db", err);
             }
@@ -92,14 +107,5 @@ base('Available recruiters list').select({
 }, function done(err) {
     if (err) { console.error(err); return; }
 });
-
-function getCountryName(currentLocation) {
-    console.log("Country name: ${currentLocation}")
-    base('Country list').find(currentLocation, function (err, record) {
-        if (err) { console.error(err); return; }
-        console.log('Retrieved', record.currentLocation);
-    });
-}
-
 
 module.exports = Airtable

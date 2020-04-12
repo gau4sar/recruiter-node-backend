@@ -4,7 +4,6 @@ const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
 const expressHandlerbars = require("express-handlebars");
-const airtableConnection = require("./airtable");
 const mongoConnection = require('./connection');
 
 const jobSeekersRoutes = require("./controller/job_seekers");
@@ -13,7 +12,8 @@ app.use("/job_seekers", jobSeekersRoutes);
 app.use(bodyParser.json());
 
 app.get("/", (req, res)=> {
-    res.send("<h1>Hello World</h1>")
+    const airtableConnection = require("./airtable");
+    res.send("<h1>Updated airtable</h1>")
 });
 
 /* app.set("views", path.join(__dirname, "/views/"));

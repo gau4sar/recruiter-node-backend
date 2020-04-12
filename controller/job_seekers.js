@@ -2,43 +2,50 @@ const mongoose = require('mongoose');
 const airtable = require("airtable");
 const express = require("express");
 const router = express.Router();
+var generalUtils = require('../utils').GENERAL;
 
 const JobSeekerModel = require("../model/job_seekers");
 
-router.get("/", (req, res) => {
-    JobSeekerModel.find((err, docs) => {
-        if (!err) {
-            console.log(docs);
-            res.send("Job seekers controller")
-        } else {
-            res.send("Error response" + err)
-        }
-    })
+
+router.get("/update", (req, res) => {
+    const airtableConnection = require("../airtable");
+    res.send("<h1>Updated airtable</h1>")
 })
 
-/* router.post("/add", (req, res) => {
-    console.log(req.body);
+router.get("/", (req, res) => {
+    var queryLocation = req.query.location;
 
-    var jobSeekerModel = new JobSeekerModel();
-    jobSeekerModel.name = req.body.name;
-    jobSeekerModel.title = req.body.title;
-    jobSeekerModel.email = req.body.email;
-    jobSeekerModel.location = req.body.location;
-    jobSeekerModel.city = req.body.city;
-    jobSeekerModel.unique_talent = req.body.unique_talent;
-    jobSeekerModel.industry_specialization = req.body.industry_specialization;
-    jobSeekerModel.open_to_relocation = req.body.open_to_relocation;
-    jobSeekerModel.remote_only = req.body.remote_only;
-    jobSeekerModel.linkedIn_url = req.body.linkedIn_url;
-    jobSeekerModel.available_from = req.body.available_from;
+    if (queryLocation == null) {
+        res.send("Calling Job seekers controller").json();
+    } else {
+        JobSeekerModel.find({ location: queryLocation }, (err, docs) => {
+            if (!err) {
+                console.log(docs);
+                res.send(docs);
+            } else {
+                res.send("Error response" + err)
+            }
+        })
+    }
+})
 
-    jobSeekerModel.save((err, doc) => {
+router.get("/country-list", (req, res) => {
+
+    JobSeekerModel.distinct("location", (err, docs) => {
         if (!err) {
-            console.log("Saved data successfully :", doc);
-        } else {
+            console.log(docs);
 
+            var locationList = [];
+            docs.forEach(function (value) {
+                locationList.push(value);
+            });
+
+            var locationJsonObject = generalUtils.covertArrayToJsonObject(locationList);
+            res.send(locationJsonObject);
+        } else {
+            console.log("Error : ", err.json);
         }
-    })
-}) */
+    });
+})
 
 module.exports = router
