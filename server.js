@@ -1,3 +1,4 @@
+const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const express = require("express");
 const app = express();
@@ -24,6 +25,6 @@ app.engine("hbs", expressHandlerbars({
 }));
 app.set("view engine", "hbs"); */
 
-app.listen(3000, ()=>{
-  console.log("Connected to port :" + 3000);
+app.listen(port, ()=>{
+  console.log("Connected to port :" + port);
 });
