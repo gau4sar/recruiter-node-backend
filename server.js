@@ -10,11 +10,11 @@ const mongoConnection = require('./connection');
 const jobSeekersRoutes = require("./controller/job_seekers");
 app.use("/job_seekers", jobSeekersRoutes);
 
-app.use(bodyParser.json());
+app.use(bodyParser.json()); 
 
 app.get("/", (req, res)=> {
     const airtableConnection = require("./airtable");
-    res.send("<h1>Updated airtable</h1>")
+    res.send("<h1>Connected to server :)</h1>")
 });
 
 /* app.set("views", path.join(__dirname, "/views/"));

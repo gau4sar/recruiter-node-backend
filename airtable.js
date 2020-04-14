@@ -9,7 +9,7 @@ Airtable.configure({
 
 var base = Airtable.base('apphkDVW5HQKQ7BI5');
 
-base('Country list').select({
+/* base('Country list').select({
     view: "Grid view"
 }).eachPage(function page(records, fetchNextPage) {
 
@@ -23,7 +23,7 @@ base('Country list').select({
     fetchNextPage();
 }, function done(err) {
     if (err) { console.error(err); return; }
-});
+}); */
 
 base('Available recruiters list').select({
     // Selecting the first 3 records in Available recruiters list :
