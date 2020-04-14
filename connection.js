@@ -1,11 +1,12 @@
-const moongoose = require("mongoose");
+const mongoose = require("mongoose");
 require('dotenv/config');
 
-moongoose.connect(
-    process.env.DB_CONNECTION,
+var uri = process.env.DB_CONNECTION
+
+mongoose.connect(
+    uri,
     {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
+        useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true
     },
     (error) => {
         if (!error) {
@@ -38,7 +39,7 @@ mysqlConnection.connect((err)=> {
     }
 }); */
 
-module.exports = moongoose
+module.exports = mongoose
 
 
 
