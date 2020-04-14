@@ -11,7 +11,7 @@ moongoose.connect(
         if (!error) {
             console.log("Connected mongodb successfully!!")
         } else {
-            console.log("Error:", error.errmsg);
+            console.log("Error connecting to mongoDB:", error);
         }
     })
 
