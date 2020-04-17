@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 app.get("/", (req, res)=> {
     const airtableConnection = require("./airtable");
-    res.send("<h1>Connected to server :)</h1>")
+    res.send("<h1>Connected to server :) Updated data to mongo !!</h1>")
 });
 
 /* app.set("views", path.join(__dirname, "/views/"));

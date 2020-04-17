@@ -6,7 +6,6 @@ var generalUtils = require('../utils').GENERAL;
 
 const JobSeekerModel = require("../model/job_seekers");
 
-
 router.get("/update", (req, res) => {
     const airtableConnection = require("../airtable");
     res.send("<h1>Updated airtable</h1>")
@@ -40,8 +39,7 @@ router.get("/country-list", (req, res) => {
                 locationList.push(value);
             });
 
-            var locationJsonObject = generalUtils.covertArrayToJsonObject(locationList);
-            res.send(locationJsonObject);
+            res.json({location : locationList})
         } else {
             console.log("Error : ", err.json);
         }
